@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <div class="blog_card">
-    <img :src="`src/assets/${props.blog.image}`" :alt="`${props.blog.title}`" />
+    <img :src="`assets/${props.blog.image}`" :alt="`${props.blog.title}`" />
     <h4 class="robotoCondensed">{{ props.blog.title }}</h4>
     <p class="robotoCondensed">{{ props.blog.description }}</p>
     <h5 class="DMsans">{{ props.blog.date }}</h5>

@@ -4,19 +4,19 @@
   <div class="partnerSect" id="partner">
     <nav class="container partnerContainer">
       <a href="https://www.atlassian.com/" target="_blank" class="partner__a">
-        <img src="../../assets/Atlassian.png" alt="Atlassian"
+        <img src="/assets/Atlassian.png" alt="Atlassian"
       /></a>
       <a href="https://slack.com/" target="_blank" class="partner__a">
-        <img src="../../assets/slack.png" alt="Slack"
+        <img src="/assets/slack.png" alt="Slack"
       /></a>
       <a href="https://www.dropbox.com/" target="_blank" class="partner__a">
-        <img src="../../assets/Dropbox.png" alt="Dropbox"
+        <img src="/assets/Dropbox.png" alt="Dropbox"
       /></a>
       <a href="https://www.shopify.com/" target="_blank" class="partner__a">
-        <img src="../../assets/shopify.png" alt="shopify"
+        <img src="/assets/shopify.png" alt="shopify"
       /></a>
       <a href="https://www.google.com/" target="_blank" class="partner__a">
-        <img src="../../assets/google.png" alt="google"
+        <img src="/assets/google.png" alt="google"
       /></a>
     </nav>
     <hr />

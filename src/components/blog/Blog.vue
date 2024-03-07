@@ -6,7 +6,7 @@ let blogs = ref(null);
 
 onMounted(async () => {
   try {
-    const response = await fetch("./src/data/blogs.json");
+    const response = await fetch("data/blogs.json");
     const result = await response.json();
     blogs.value = result;
   } catch (error) {

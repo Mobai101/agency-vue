@@ -18,7 +18,7 @@ const props = defineProps({
   >
     <figure class="clientSay_figure">
       <img
-        :src="`./src/assets/${props.client.image}`"
+        :src="`assets/${props.client.image}`"
         :alt="`${props.client.name}`"
       />
       <figcaption class="clientSay_figcap">

@@ -21,7 +21,7 @@ const closeYoutube = () => {
       <div class="advantageContainer">
         <!-- Image Div -->
         <div class="advantageSection_ImgDiv" v-if="!isShownYoutube">
-          <img src="../../assets/Group1.png" alt="Lady with book" />
+          <img src="/assets/Group1.png" alt="Lady with book" />
           <button class="advantageSection_ImgDiv_btn" @click="openYoutube">
             <svg
               width="36"

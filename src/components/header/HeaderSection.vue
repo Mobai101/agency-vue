@@ -104,7 +104,7 @@ const prevBanner = () => {
         >
           <h2 class="inknutAntiqua">{{ banner.title }}</h2>
           <span class="banner_subtext robotoCondensed">
-            <img src="../../assets/flower.png" alt="Flower" />
+            <img src="/assets/flower.png" alt="Flower" />
 
             <span>
               {{ banner.subTitle }}
@@ -130,7 +130,7 @@ const prevBanner = () => {
               :style="{ backgroundColor: `var(--${banner.backgroundColor})` }"
             >
               <img
-                :src="`./src/assets/${banner.image}`"
+                :src="`assets/${banner.image}`"
                 :alt="`${banner.imageDesc}`"
               />
             </div>
