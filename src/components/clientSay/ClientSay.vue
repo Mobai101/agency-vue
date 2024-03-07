@@ -1,4 +1,6 @@
 <script setup>
+import OrangeRoundButton from "../utils/OrangeRoundButton.vue";
+import ClientCard from "./ClientCard.vue";
 import { ref } from "vue";
 
 const currentClient = ref(1);
@@ -39,19 +41,15 @@ const testimonials = [
 ];
 
 const nextClient = () => {
-  if (currentClient.value === testimonials.length) {
-    currentClient.value = 1;
-  } else {
-    currentClient.value++;
-  }
+  if (currentClient.value === testimonials.length) return;
+
+  currentClient.value++;
 };
 
 const prevClient = () => {
-  if (currentClient.value === 1) {
-    currentClient.value = testimonials.length;
-  } else {
-    currentClient.value--;
-  }
+  if (currentClient.value === 1) return;
+
+  currentClient.value--;
 };
 </script>
 
@@ -69,41 +67,20 @@ const prevClient = () => {
           v-touch:swipe.left="nextClient"
           v-touch:swipe.right="prevClient"
         >
-          <article
-            class="clientSay_card"
-            :style="{
-              backgroundColor: `var(--${client.backgroundColor})`,
-              transform: `translateX(${(index - currentClient + 1) * 108}%)`,
-            }"
+          <ClientCard
             v-for="(client, index) in testimonials"
-          >
-            <figure class="clientSay_figure">
-              <img
-                :src="`/src/assets/${client.image}`"
-                :alt="`${client.name}`"
-              />
-              <figcaption class="clientSay_figcap">
-                <h5 class="robotoCondensed">{{ client.name }}</h5>
-                <h6 class="DMsans">{{ client.job }}</h6>
-              </figcaption>
-            </figure>
-            <blockquote class="clientSay_blockquote DMsans">
-              <p>
-                {{ client.quote }}
-              </p>
-            </blockquote>
-          </article>
+            :client="client"
+            :index="index"
+            :currentClient="currentClient"
+            :key="client.job"
+          />
         </div>
       </div>
     </div>
     <div class="clientSayBottomSect">
       <div class="container clientSayBtnFlexContainer">
-        <button class="roundOrangeBtn clientBtnLeft" @click="prevClient">
-          <img src="../../assets/leftBtn.png" alt="Left Button" />
-        </button>
-        <button class="roundOrangeBtn clientBtnRight" @click="nextClient">
-          <img src="../../assets/rightBtn.png" alt="Right Button" />
-        </button>
+        <OrangeRoundButton type="left" @click="prevClient" />
+        <OrangeRoundButton type="right" @click="nextClient" />
       </div>
       <hr />
     </div>
@@ -156,38 +133,6 @@ const prevClient = () => {
     z-index: 5;
   }
 
-  .clientSay_card {
-    position: absolute;
-    padding: 3rem;
-    width: 29.375rem;
-    height: 32rem;
-    transition: transform 0.3s ease-out;
-  }
-
-  .clientSay_figure {
-    display: flex;
-    align-items: center;
-    gap: 1.625rem;
-    margin-bottom: 6.75rem;
-  }
-
-  .clientSay_figure img {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 100px;
-  }
-
-  .clientSay_figure h5 {
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .clientSay_blockquote p {
-    color: var(--halfwhite);
-  }
-
   .clientSayBtnFlexContainer {
     padding: 8.5rem 0;
     display: flex;
@@ -204,11 +149,6 @@ const prevClient = () => {
   .clientSay_cardDiv {
     top: 65%;
     left: 45%;
-    height: 36rem;
-  }
-
-  .clientSay_card {
-    width: 50vw;
     height: 36rem;
   }
 
@@ -234,11 +174,6 @@ const prevClient = () => {
     width: 100%;
     top: 70%;
     left: 1.5rem;
-  }
-
-  .clientSay_card {
-    width: 88vw;
-    height: 40rem;
   }
 
   .clientSayBtnFlexContainer {

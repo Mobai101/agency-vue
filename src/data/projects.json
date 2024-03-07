@@ -29,6 +29,14 @@
     "image": "tiredWoman.png",
     "imageDesc": "Tired Woman",
     "backgroundColor": "green",
+    "textColor": "white"
+  },
+  {
+    "category": "Products",
+    "description": "Wow Products",
+    "image": "tiredWoman.png",
+    "imageDesc": "Tired Woman",
+    "backgroundColor": "yellow",
     "textColor": "black"
   }
 ]

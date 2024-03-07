@@ -1,4 +1,19 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import BlogCard from "./BlogCard.vue";
+
+let blogs = ref(null);
+
+onMounted(async () => {
+  try {
+    const response = await fetch("/src/data/blogs.json");
+    const result = await response.json();
+    blogs.value = result;
+  } catch (error) {
+    console.log(error);
+  }
+});
+</script>
 
 <template>
   <section class="blogSection" id="blog">
@@ -13,7 +28,7 @@
         </p>
       </div>
       <div class="blog_contentDiv">
-        <!-- JS will fill here with blogs from JSON file -->
+        <BlogCard v-for="blog in blogs" :blog="blog" :key="blog.title" />
       </div>
     </div>
   </section>
@@ -41,29 +56,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 1.875rem;
   }
-
-  .blog_card {
-    width: 23.125rem;
-    cursor: pointer;
-  }
-
-  .blog_card:hover {
-    opacity: 0.7;
-  }
-
-  .blog_card img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-  }
-
-  .blog_card p {
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    line-height: 2rem;
-    margin: 0.75rem 0;
-  }
 }
 
 /* Tablet */
@@ -80,14 +72,6 @@
   .blog_contentDiv {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .blog_card {
-    width: 43vw;
-  }
-
-  .blog_card p {
-    letter-spacing: 0px;
-  }
 }
 
 /* Mobile */
@@ -100,14 +84,6 @@
   .blog_contentDiv {
     grid-template-columns: repeat(1, 1fr);
     gap: 4.25rem;
-  }
-
-  .blog_card {
-    width: 88vw;
-  }
-
-  .blog_card img {
-    width: 100%;
   }
 }
 </style>

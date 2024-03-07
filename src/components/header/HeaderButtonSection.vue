@@ -1,4 +1,6 @@
 <script setup>
+import OrangeRoundButton from "../utils/OrangeRoundButton.vue";
+
 const props = defineProps({
   currentBanner: Number,
   totalBanner: Number,
@@ -9,12 +11,9 @@ const props = defineProps({
   <div class="navBtnSection">
     <div class="container">
       <div class="navBtnSection_container">
-        <button class="roundOrangeBtn navBtnLeft" @click="$emit('prevBanner')">
-          <img src="../../assets/leftBtn.png" alt="Left Button" />
-        </button>
-        <button class="roundOrangeBtn navBtnRight" @click="$emit('nextBanner')">
-          <img src="../../assets/rightBtn.png" alt="Right Button" />
-        </button>
+        <OrangeRoundButton type="left" @click="$emit('prevBanner')" />
+        <OrangeRoundButton type="right" @click="$emit('nextBanner')" />
+
         <div class="navBtnSection_pageNo robotoCondensed">
           <b>{{ props.currentBanner }}/{{ totalBanner }}</b>
         </div>

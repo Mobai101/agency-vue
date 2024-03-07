@@ -39,7 +39,7 @@ const banners = [
   },
 ];
 
-const nextSlide = () => {
+const nextBanner = () => {
   if (currentBanner.value === banners.length) {
     currentBanner.value = 1;
   } else {
@@ -47,7 +47,7 @@ const nextSlide = () => {
   }
 };
 
-const prevSlide = () => {
+const prevBanner = () => {
   if (currentBanner.value === 1) {
     currentBanner.value = banners.length;
   } else {
@@ -142,8 +142,8 @@ const prevSlide = () => {
   <HeaderButtonSection
     :currentBanner="currentBanner"
     :totalBanner="banners.length"
-    @nextBanner="nextSlide"
-    @prevBanner="prevSlide"
+    @nextBanner="nextBanner"
+    @prevBanner="prevBanner"
   />
 </template>
 

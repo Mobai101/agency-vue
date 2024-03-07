@@ -1,4 +1,46 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, watch } from "vue";
+import ProjectCard from "./ProjectCard.vue";
+
+let allProjects = [];
+const filteredProjects = ref(null);
+const isHiding = ref(true);
+const currentCategory = ref("All");
+const allCategories = ["All", "Design", "Branding", "Development", "Products"];
+
+// get data from json
+onMounted(async () => {
+  try {
+    const response = await fetch("/src/data/projects.json");
+    const result = await response.json();
+    allProjects = result;
+    filteredProjects.value = allProjects;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// change filtered projects when current category change, also reset isHiding value to hide item > 2
+watch(currentCategory, (newCategory) => {
+  isHiding.value = true;
+  filteredProjects.value = allProjects.filter((project) => {
+    if (newCategory === "All") {
+      return true;
+    }
+    return project.category === newCategory;
+  });
+});
+
+// change category when click category button in desktop view
+const changeToCategory = (category) => {
+  currentCategory.value = category;
+};
+
+// Load more button
+const loadMore = () => {
+  isHiding.value = false;
+};
+</script>
 
 <template>
   <section class="projectSection" id="projects">
@@ -17,41 +59,51 @@
         <aside class="projectBody_aside">
           <h4 class="robotoCondensed">portfolio</h4>
           <div class="categoryContainer">
-            <!-- JS will fill in categories here -->
+            <button
+              :class="{
+                DMsans: true,
+                categoryButton: true,
+                activeCategory: category === currentCategory,
+              }"
+              v-for="category in allCategories"
+              :key="category"
+              @click="changeToCategory(category)"
+            >
+              {{ category }}
+            </button>
           </div>
           <select
             name="project_categorySelector"
             id="project_categorySelector"
             class="project_categorySelector"
+            v-model="currentCategory"
           >
-            <option value="all">All</option>
+            <option
+              :selected="category === currentCategory"
+              v-for="category in allCategories"
+              :key="category"
+            >
+              {{ category }}
+            </option>
           </select>
         </aside>
         <div class="projectBody_body">
           <div class="projectBody_contentContainer">
-            <div
-              class="projectCard"
-              style="background-color: var(--yellow); color: var(--black)"
-            >
-              <div class="projectTextDiv">
-                <h4 class="robotoCondensed">design</h4>
-                <h3 class="inknutAntiqua">creative template</h3>
-              </div>
-              <img src="../../assets/cuteDog.png" alt="Cute Dog" />
-            </div>
-            <div
-              class="projectCard"
-              style="background-color: var(--orange); color: var(--white)"
-            >
-              <div class="projectTextDiv">
-                <h4 class="robotoCondensed">branding</h4>
-                <h3 class="inknutAntiqua">Amazing startup</h3>
-              </div>
-              <img src="../../assets/tiredWoman.png" alt="Tired Woman" />
-            </div>
+            <ProjectCard
+              v-for="(project, index) in filteredProjects"
+              :project="project"
+              :key="project.description"
+              :hidden="isHiding && index > 1"
+            />
           </div>
           <!-- Load more button -->
-          <button class="robotoCondensed projectBody_btn">load more</button>
+          <button
+            class="robotoCondensed projectBody_btn"
+            @click="loadMore"
+            v-if="isHiding && filteredProjects?.length > 2"
+          >
+            load more
+          </button>
         </div>
       </div>
     </div>
@@ -96,7 +148,7 @@
     margin-top: 2.25rem;
   }
 
-  .category_button {
+  .categoryButton {
     height: 3rem;
     width: 10.625rem;
     text-align: start;
@@ -105,7 +157,7 @@
     background: none;
   }
 
-  .category_button:hover {
+  .categoryButton:hover {
     text-decoration: underline;
   }
 
@@ -138,27 +190,6 @@
     gap: 3rem;
   }
 
-  .projectCard {
-    border-radius: 3px;
-    height: 26rem;
-    padding: 3rem;
-    display: flex;
-    align-items: flex-end;
-    position: relative;
-  }
-
-  .projectTextDiv h3 {
-    font-size: 2.5rem;
-    line-height: 3rem;
-    margin-top: 0.75rem;
-  }
-
-  .projectTextDiv {
-    width: 18rem;
-    position: relative;
-    z-index: 1;
-  }
-
   .projectBody_btn {
     margin-top: 2.25rem;
     align-self: center;
@@ -176,14 +207,6 @@
 
   .projectBody_btn:active {
     transform: translateY(4px);
-  }
-
-  .projectCard img {
-    position: absolute;
-    bottom: 0;
-    right: 30%;
-    transform: translate(50%, 0);
-    max-height: 120%;
   }
 }
 
@@ -223,24 +246,6 @@
 
   .categoryContainer {
     display: none;
-  }
-
-  .projectCard {
-    padding: 1.75rem;
-    height: 20rem;
-  }
-
-  .projectCard img {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translate(20%, 0);
-    max-height: 108%;
-  }
-
-  img[alt="Tired Woman"] {
-    max-height: 95%;
-    transform: translate(0, 0);
   }
 }
 </style>

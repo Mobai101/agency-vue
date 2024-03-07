@@ -1,4 +1,5 @@
 <script setup>
+import FeatureCard from "./FeatureCard.vue";
 import { ref } from "vue";
 
 const currentFeature = ref(1);
@@ -61,24 +62,13 @@ const swipeRight = () => {
         v-touch:swipe.left="swipeLeft"
         v-touch:swipe.right="swipeRight"
       >
-        <div
-          class="featureCard"
+        <FeatureCard
           v-for="(feature, index) in features"
+          :feature="feature"
+          :index="index"
           :key="feature.title"
-          :style="{
-            backgroundColor: `var(--${feature.backgroundColor})`,
-            transform: `translateX(${(index - currentFeature + 1) * 105}%)`,
-          }"
-        >
-          <img
-            :src="`/src/assets/${feature.icon}.png`"
-            :alt="`${feature.icon}`"
-          />
-          <h5 class="robotoCondensed">{{ feature.title }}</h5>
-          <p class="DMsans">
-            {{ feature.desc }}
-          </p>
-        </div>
+          :currentFeature="currentFeature"
+        />
       </div>
       <div class="featureSection_dotsdiv">
         <!-- js will fill in dots here -->
@@ -132,22 +122,6 @@ const swipeRight = () => {
     position: relative;
   }
 
-  .featureCard {
-    position: absolute;
-    width: 35.625rem;
-    height: 18rem;
-    padding: 3rem;
-    transition: transform 0.5s ease-out;
-  }
-
-  .featureCard h5 {
-    font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 2rem;
-    letter-spacing: 1px;
-    margin: 1rem 0;
-  }
-
   .featureSection_dotsdiv {
     margin-top: 5rem;
     display: flex;
@@ -169,9 +143,6 @@ const swipeRight = () => {
 
 /* Tablet */
 @media screen and (max-width: 1170px) {
-  .featureCard {
-    width: 70vw;
-  }
 }
 
 /* Mobile */
@@ -189,13 +160,6 @@ const swipeRight = () => {
   .featureSection_featureDiv {
     margin-top: 5rem;
     height: 24rem;
-  }
-
-  .featureCard {
-    position: absolute;
-    width: 88vw;
-    height: 24rem;
-    padding: 3rem;
   }
 }
 </style>
