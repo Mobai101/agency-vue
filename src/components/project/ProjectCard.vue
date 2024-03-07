@@ -15,7 +15,7 @@ const props = defineProps({
       <h3 class="inknutAntiqua">{{ props.project.description }}</h3>
     </div>
     <img
-      :src="`/src/assets/${props.project.image}`"
+      :src="`./src/assets/${props.project.image}`"
       :alt="`${props.project.imageDesc}`"
     />
   </div>

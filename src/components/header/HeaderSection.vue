@@ -130,7 +130,7 @@ const prevBanner = () => {
               :style="{ backgroundColor: `var(--${banner.backgroundColor})` }"
             >
               <img
-                :src="`/src/assets/${banner.image}`"
+                :src="`./src/assets/${banner.image}`"
                 :alt="`${banner.imageDesc}`"
               />
             </div>

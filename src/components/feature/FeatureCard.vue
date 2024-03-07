@@ -17,7 +17,7 @@ const props = defineProps({
     }"
   >
     <img
-      :src="`/src/assets/${props.feature.icon}.png`"
+      :src="`./src/assets/${props.feature.icon}.png`"
       :alt="`${props.feature.icon}`"
     />
     <h5 class="robotoCondensed">{{ props.feature.title }}</h5>

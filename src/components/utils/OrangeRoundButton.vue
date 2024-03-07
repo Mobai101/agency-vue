@@ -7,7 +7,7 @@ const props = defineProps({
 <template>
   <button class="roundOrangeBtn">
     <img
-      :src="`/src/assets/${props.type}Btn.png`"
+      :src="`./src/assets/${props.type}Btn.png`"
       :alt="`${props.type} Button`"
     />
   </button>
